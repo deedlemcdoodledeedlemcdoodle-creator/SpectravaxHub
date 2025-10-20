@@ -2785,7 +2785,7 @@ local function C_138()
 		if IsSelecting.Value == true then
 			script.Parent.Title.Text = "Delta Mobile - Keyboard (Selecting Key)"
 		elseif IsSelecting.Value == false then
-			script.Parent.Title.Text = "Delta Mobile - Keyboard Cracked By ATA"
+			script.Parent.Title.Text = "Delta Mobile - Keyboard by SpectravaxISBACK."
 		end
 	end)
 

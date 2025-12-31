@@ -1,5 +1,3 @@
-git clone https://github.com/deedlemcdoodledeedlemcdoodle-creator/SpectravaxHub.git
-cd SpectravaxHub
-git add README.md
-git commit -m "Initial README"
-git push origin main
+<p align="center">
+  <img src="https://ik.imagekit.io/lxdddnwhj/Picsart_25-12-31_21-15-25-785.jpg" alt="Spectravax Hub"/>
+</p>

@@ -1,139 +1,173 @@
--- Services
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
-local LocalPlayer = Players.LocalPlayer
+local Lighting = game:GetService("Lighting")
+local player = Players.LocalPlayer
 
--- GUI Setup
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ResetOnSpawn = true
-
--- Main Frame
-local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0, 200, 0, 150)
-Frame.Position = UDim2.new(0.5, -100, 0.5, -75)
-Frame.BackgroundTransparency = 1
-Frame.Parent = ScreenGui
-Frame.Active = true -- Required for dragging
-Frame.Draggable = true -- Make the frame draggable
-
--- Background Image
-local Background = Instance.new("ImageLabel")
-Background.Size = UDim2.new(1, 0, 1, 0)
-Background.Position = UDim2.new(0, 0, 0, 0)
-Background.Image = "rbxassetid://133157399692146"
-Background.BackgroundTransparency = 1
-Background.Parent = Frame
-
--- UI Corner for Rounded Edges
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 15)
-UICorner.Parent = Background
-
--- Text Input
-local TextBox = Instance.new("TextBox")
-TextBox.Size = UDim2.new(0.8, 0, 0.2, 0)
-TextBox.Position = UDim2.new(0.1, 0, 0.15, 0)
-TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextBox.PlaceholderText = "Enter Key"
-TextBox.Text = ""
-TextBox.Parent = Frame
-
--- Feedback Label
-local FeedbackLabel = Instance.new("TextLabel")
-FeedbackLabel.Size = UDim2.new(0.8, 0, 0.2, 0)
-FeedbackLabel.Position = UDim2.new(0.1, 0, 0.4, 0)
-FeedbackLabel.BackgroundTransparency = 1
-FeedbackLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-FeedbackLabel.Text = ""
-FeedbackLabel.TextScaled = true
-FeedbackLabel.Parent = Frame
-
--- Enter Key Button
-local EnterButton = Instance.new("TextButton")
-EnterButton.Size = UDim2.new(0.4, 0, 0.2, 0)
-EnterButton.Position = UDim2.new(0.1, 0, 0.65, 0)
-EnterButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-EnterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-EnterButton.Text = "Enter Key"
-EnterButton.Parent = Frame
-
--- Get Link Button
-local LinkButton = Instance.new("TextButton")
-LinkButton.Size = UDim2.new(0.4, 0, 0.2, 0)
-LinkButton.Position = UDim2.new(0.55, 0, 0.65, 0)
-LinkButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-LinkButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-LinkButton.Text = "Get Link"
-LinkButton.Parent = Frame
-
--- Button Corners
-local EnterButtonCorner = Instance.new("UICorner")
-EnterButtonCorner.CornerRadius = UDim.new(0, 10)
-EnterButtonCorner.Parent = EnterButton
-
-local LinkButtonCorner = Instance.new("UICorner")
-LinkButtonCorner.CornerRadius = UDim.new(0, 10)
-LinkButtonCorner.Parent = LinkButton
-
--- Functionality
-local correctKey = "SPECTRAVAXY"
-local link = "https://raw.githubusercontent.com/deedlemcdoodledeedlemcdoodle-creator/SpectravaxHub/refs/heads/main/spectravaxeverykey.lua"
-
--- Fade Animation
-local function fadeOutGui()
-    -- Ensure initial transparency is 0 for all elements
-    Frame.BackgroundTransparency = 1
-    Background.ImageTransparency = 0
-    TextBox.BackgroundTransparency = 0
-    TextBox.TextTransparency = 0
-    FeedbackLabel.TextTransparency = 0
-    EnterButton.BackgroundTransparency = 0
-    EnterButton.TextTransparency = 0
-    LinkButton.BackgroundTransparency = 0
-    LinkButton.TextTransparency = 0
-
-    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-    
-    -- Create tweens for each element's transparency
-    local tweens = {
-        TweenService:Create(Background, tweenInfo, {ImageTransparency = 1}),
-        TweenService:Create(TextBox, tweenInfo, {BackgroundTransparency = 1, TextTransparency = 1}),
-        TweenService:Create(FeedbackLabel, tweenInfo, {TextTransparency = 1}),
-        TweenService:Create(EnterButton, tweenInfo, {BackgroundTransparency = 1, TextTransparency = 1}),
-        TweenService:Create(LinkButton, tweenInfo, {BackgroundTransparency = 1, TextTransparency = 1})
+local Config = {
+    Title = "Key System",
+    Description = "Complete the key system to continue.",
+    CopyLink = "Key123",
+    CorrectKey = "Key123",
+    ParticleColor = Color3.fromRGB(0,170,255),
+    ThemeOptions = {
+        Blue = Color3.fromRGB(0,170,255),
+        Purple = Color3.fromRGB(170,0,255),
+        Green = Color3.fromRGB(0,255,170),
+        Red = Color3.fromRGB(255,80,80)
     }
+}
 
-    -- Play all tweens
-    for _, tween in ipairs(tweens) do
-        tween:Play()
-    end
+local blur = Instance.new("BlurEffect", Lighting)
+blur.Size = 18
 
-    -- Destroy GUI after tween completes
-    tweens[1].Completed:Connect(function()
-        ScreenGui:Destroy()
-    end)
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.fromScale(0.35, 0.5)
+main.Position = UDim2.fromScale(0.5, 0.5)
+main.AnchorPoint = Vector2.new(0.5,0.5)
+main.BackgroundColor3 = Color3.fromRGB(20,20,20)
+main.BorderSizePixel = 0
+main.ClipsDescendants = true
+Instance.new("UICorner", main).CornerRadius = UDim.new(0,14)
+
+local scale = Instance.new("UIScale", main)
+local function rescale()
+    local v = workspace.CurrentCamera.ViewportSize
+    local s = math.min(v.X,v.Y)
+    scale.Scale = s < 450 and 0.75 or s < 600 and 0.85 or 1
 end
+rescale()
+workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(rescale)
 
--- Enter Key Logic
-EnterButton.MouseButton1Click:Connect(function()
-    if TextBox.Text == correctKey then
-        FeedbackLabel.Text = "Correct Key, You may ENTER!"
-        FeedbackLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-        wait(0.5) -- Brief delay to show the message before fading
-        fadeOutGui() -- Fade and destroy GUI
-    else
-        FeedbackLabel.Text = "Incorrect Key, Get Out of Here!"
-        FeedbackLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+local particles = Instance.new("Frame", main)
+particles.Size = UDim2.fromScale(1,1)
+particles.BackgroundTransparency = 1
+particles.ZIndex = 1
+particles.ClipsDescendants = true
+
+task.spawn(function()
+    while gui.Parent do
+        local p = Instance.new("Frame", particles)
+        p.Size = UDim2.fromOffset(3,3)
+        p.Position = UDim2.fromScale(math.random(), 1.1)
+        p.BackgroundColor3 = Config.ParticleColor
+        p.BackgroundTransparency = 0.2
+        p.BorderSizePixel = 0
+        p.ZIndex = 1
+        Instance.new("UICorner", p).CornerRadius = UDim.new(1,0)
+        TweenService:Create(
+            p,
+            TweenInfo.new(math.random(3,6), Enum.EasingStyle.Sine),
+            {Position = UDim2.fromScale(math.random(), -0.2), BackgroundTransparency = 1}
+        ):Play()
+        task.delay(6, function() p:Destroy() end)
+        task.wait(math.random(8,18)/10)
     end
 end)
 
--- Get Link Logic
-LinkButton.MouseButton1Click:Connect(function()
-    pcall(function()
-        setclipboard(link)
-        FeedbackLabel.Text = "Link copied to clipboard!"
-        FeedbackLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-    end)
+local title = Instance.new("TextLabel", main)
+title.Text = Config.Title
+title.Size = UDim2.new(1,-20,0,40)
+title.Position = UDim2.new(0,10,0,10)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.TextColor3 = Color3.new(1,1,1)
+title.ZIndex = 5
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+local desc = Instance.new("TextLabel", main)
+desc.Text = Config.Description
+desc.Size = UDim2.new(1,-20,0,40)
+desc.Position = UDim2.new(0,10,0,55)
+desc.BackgroundTransparency = 1
+desc.Font = Enum.Font.Gotham
+desc.TextWrapped = true
+desc.TextSize = 14
+desc.TextColor3 = Color3.fromRGB(200,200,200)
+desc.ZIndex = 5
+
+local copyBox = Instance.new("TextBox", main)
+copyBox.Text = Config.CopyLink
+copyBox.Size = UDim2.new(0.7,-15,0,36)
+copyBox.Position = UDim2.new(0,10,0,105)
+copyBox.BackgroundColor3 = Color3.fromRGB(30,30,30)
+copyBox.Font = Enum.Font.Gotham
+copyBox.TextSize = 14
+copyBox.TextColor3 = Color3.new(1,1,1)
+copyBox.BorderSizePixel = 0
+copyBox.ZIndex = 5
+Instance.new("UICorner", copyBox).CornerRadius = UDim.new(0,8)
+
+local copyBtn = Instance.new("TextButton", main)
+copyBtn.Text = "Copy"
+copyBtn.Size = UDim2.new(0.3,-5,0,36)
+copyBtn.Position = UDim2.new(0.7,5,0,105)
+copyBtn.BackgroundColor3 = Color3.fromRGB(45,45,45)
+copyBtn.Font = Enum.Font.GothamBold
+copyBtn.TextSize = 14
+copyBtn.TextColor3 = Color3.new(1,1,1)
+copyBtn.BorderSizePixel = 0
+copyBtn.ZIndex = 5
+Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0,8)
+copyBtn.MouseButton1Click:Connect(function()
+    if setclipboard then setclipboard(copyBox.Text) end
 end)
+
+local keyBox = Instance.new("TextBox", main)
+keyBox.PlaceholderText = "Enter key"
+keyBox.Size = UDim2.new(1,-20,0,36)
+keyBox.Position = UDim2.new(0,10,0,150)
+keyBox.BackgroundColor3 = Color3.fromRGB(30,30,30)
+keyBox.Font = Enum.Font.Gotham
+keyBox.TextSize = 14
+keyBox.TextColor3 = Color3.new(1,1,1)
+keyBox.BorderSizePixel = 0
+keyBox.ZIndex = 5
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0,8)
+
+local status = Instance.new("TextLabel", main)
+status.Size = UDim2.new(1,-20,0,25)
+status.Position = UDim2.new(0,10,0,190)
+status.BackgroundTransparency = 1
+status.Font = Enum.Font.GothamBold
+status.TextSize = 14
+status.ZIndex = 5
+
+local submit = Instance.new("TextButton", main)
+submit.Text = "Submit Key"
+submit.Size = UDim2.new(1,-20,0,38)
+submit.Position = UDim2.new(0,10,0,220)
+submit.BackgroundColor3 = Color3.fromRGB(0,170,255)
+submit.Font = Enum.Font.GothamBold
+submit.TextSize = 15
+submit.TextColor3 = Color3.new(1,1,1)
+submit.BorderSizePixel = 0
+submit.ZIndex = 5
+Instance.new("UICorner", submit).CornerRadius = UDim.new(0,8)
+submit.MouseButton1Click:Connect(function()
+    if keyBox.Text == Config.CorrectKey then
+        status.Text = "Correct Key!"
+        status.TextColor3 = Color3.fromRGB(0,255,170)
+        task.wait(0.6)
+        blur:Destroy()
+        gui:Destroy()
+    else
+        status.Text = "Incorrect Key!"
+        status.TextColor3 = Color3.fromRGB(255,80,80)
+    end
+end)
+
+local footer = Instance.new("TextLabel", main)
+footer.Text = "Scripted by SpectravaxISBACK, V2."
+footer.Size = UDim2.new(1,0,0,30)
+footer.Position = UDim2.new(0,0,1,-30)
+footer.BackgroundTransparency = 1
+footer.Font = Enum.Font.GothamBold
+footer.TextSize = 14
+footer.TextColor3 = Color3.new(1,1,1)
+footer.ZIndex = 5
+local stroke = Instance.new("UIStroke", footer)
+stroke.Color = Color3.fromRGB(150,150,150)

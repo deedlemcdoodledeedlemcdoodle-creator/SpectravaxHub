@@ -3,5 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://ik.imagekit.io/lxdddnwhj/Screenshot_20260202-234134~2.png" alt="Spectravax Hub Second Image"/>
+  <a href="https://deedlemcdoodledeedlemcdoodle-creator.github.io">
+    <img src="https://ik.imagekit.io/lxdddnwhj/Screenshot_20260202-234134~2.png" alt="Spectravax Hub Second Image"/>
+  </a>
 </p>

@@ -38,7 +38,7 @@ end
 function Library:CreateWindow(title, iconName)
     local theme = Library.CurrentTheme
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "Spectravax_UI"
+    ScreenGui.Name = "Basic_UI"
     ScreenGui.ResetOnSpawn = false
     ScreenGui.Parent = gethui and gethui() or game:GetService("CoreGui") or LocalPlayer:WaitForChild("PlayerGui")
 
@@ -98,6 +98,42 @@ function Library:CreateWindow(title, iconName)
 
     local Elements = {}
 
+    function Elements:Label(text)
+        local Label = Instance.new("TextLabel", Container)
+        Label.Size = UDim2.new(1, 0, 0, 20)
+        Label.BackgroundTransparency = 1
+        Label.Text = text
+        Label.TextColor3 = Color3.fromRGB(160, 160, 160)
+        Label.Font = Enum.Font.Gotham
+        Label.TextSize = 11
+    end
+
+    function Elements:CopyLabel(text, content)
+        local Frame = Instance.new("Frame", Container)
+        Frame.Size = UDim2.new(1, 0, 0, 28)
+        Frame.BackgroundTransparency = 1
+        local Label = Instance.new("TextLabel", Frame)
+        Label.Size = UDim2.new(0.7, 0, 1, 0)
+        Label.BackgroundTransparency = 1
+        Label.Text = text
+        Label.TextColor3 = theme.Text
+        Label.Font = Enum.Font.Gotham
+        Label.TextSize = 11
+        Label.TextXAlignment = Enum.TextXAlignment.Left
+        local Btn = Instance.new("TextButton", Frame)
+        Btn.Size = UDim2.new(0.28, 0, 0.8, 0)
+        Btn.Position = UDim2.new(0.72, 0, 0.1, 0)
+        Btn.BackgroundColor3 = theme.Accent
+        Btn.Text = "Copy"
+        Btn.TextColor3 = theme.Main
+        Btn.Font = Enum.Font.GothamBold
+        Btn.TextSize = 10
+        Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 4)
+        Btn.Activated:Connect(function()
+            if setclipboard then setclipboard(content or text) Btn.Text = "Done!" task.wait(1) Btn.Text = "Copy" end
+        end)
+    end
+
     function Elements:Button(text, iconName, callback)
         local Button = Instance.new("TextButton", Container)
         Button.Size = UDim2.new(1, 0, 0, 30)
@@ -132,7 +168,6 @@ function Library:CreateWindow(title, iconName)
         local SliderFrame = Instance.new("Frame", Container)
         SliderFrame.Size = UDim2.new(1, 0, 0, 40)
         SliderFrame.BackgroundTransparency = 1
-
         local Label = Instance.new("TextLabel", SliderFrame)
         Label.Text = text
         Label.Size = UDim2.new(1, 0, 0, 18)
@@ -141,7 +176,6 @@ function Library:CreateWindow(title, iconName)
         Label.Font = Enum.Font.Gotham
         Label.TextSize = 11
         Label.TextXAlignment = Enum.TextXAlignment.Left
-
         local ValLabel = Instance.new("TextLabel", SliderFrame)
         ValLabel.Text = tostring(default)
         ValLabel.Size = UDim2.new(1, -5, 0, 18)
@@ -150,26 +184,21 @@ function Library:CreateWindow(title, iconName)
         ValLabel.Font = Enum.Font.Gotham
         ValLabel.TextXAlignment = Enum.TextXAlignment.Right
         ValLabel.TextSize = 11
-
         local Bar = Instance.new("Frame", SliderFrame)
         Bar.Size = UDim2.new(1, -6, 0, 4)
         Bar.Position = UDim2.new(0, 3, 0, 26)
         Bar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         Instance.new("UICorner", Bar)
-
         local Fill = Instance.new("Frame", Bar)
         Fill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
         Fill.BackgroundColor3 = theme.Accent
         Instance.new("UICorner", Fill)
-
         local Circle = Instance.new("Frame", Fill)
         Circle.Size = UDim2.new(0, 10, 0, 10)
         Circle.AnchorPoint = Vector2.new(0.5, 0.5)
         Circle.Position = UDim2.new(1, 0, 0.5, 0)
         Circle.BackgroundColor3 = theme.Accent
         Instance.new("UICorner", Circle).CornerRadius = UDim.new(1, 0)
-        Instance.new("UIStroke", Circle).Color = theme.Main
-
         local dragging = false
         local function Update(input)
             local pos = math.clamp((input.Position.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X, 0, 1)
@@ -178,7 +207,6 @@ function Library:CreateWindow(title, iconName)
             ValLabel.Text = tostring(val)
             if callback then callback(val) end
         end
-
         Bar.InputBegan:Connect(function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true Update(input) end
         end)
@@ -190,14 +218,59 @@ function Library:CreateWindow(title, iconName)
         end)
     end
 
-    function Elements:Label(text)
-        local Label = Instance.new("TextLabel", Container)
-        Label.Size = UDim2.new(1, 0, 0, 20)
-        Label.BackgroundTransparency = 1
-        Label.Text = text
-        Label.TextColor3 = Color3.fromRGB(160, 160, 160)
-        Label.Font = Enum.Font.Gotham
-        Label.TextSize = 11
+    function Elements:Dropdown(text, list, callback)
+        local DropdownFrame = Instance.new("Frame", Container)
+        DropdownFrame.Size = UDim2.new(1, 0, 0, 28)
+        DropdownFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        DropdownFrame.ClipsDescendants = true
+        Instance.new("UICorner", DropdownFrame).CornerRadius = UDim.new(0, 4)
+
+        local DropBtn = Instance.new("TextButton", DropdownFrame)
+        DropBtn.Size = UDim2.new(1, 0, 0, 28)
+        DropBtn.BackgroundTransparency = 1
+        DropBtn.Text = text .. " +"
+        DropBtn.TextColor3 = theme.Text
+        DropBtn.Font = Enum.Font.Gotham
+        DropBtn.TextSize = 12
+
+        local OptionScroll = Instance.new("ScrollingFrame", DropdownFrame)
+        OptionScroll.Size = UDim2.new(1, 0, 0, 125)
+        OptionScroll.Position = UDim2.new(0, 0, 0, 28)
+        OptionScroll.BackgroundTransparency = 1
+        OptionScroll.BorderSizePixel = 0
+        OptionScroll.ScrollBarThickness = 2
+        OptionScroll.ScrollBarImageColor3 = theme.Accent
+        OptionScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+        local OptionLayout = Instance.new("UIListLayout", OptionScroll)
+        OptionLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+        local toggled = false
+        DropBtn.Activated:Connect(function()
+            toggled = not toggled
+            -- Limit height so it doesn't cover the whole screen
+            local contentHeight = math.min(#list * 25, 125)
+            local goalSize = toggled and UDim2.new(1, 0, 0, 28 + contentHeight) or UDim2.new(1, 0, 0, 28)
+            TweenService:Create(DropdownFrame, TweenInfo.new(0.2), {Size = goalSize}):Play()
+            DropBtn.Text = toggled and text .. " -" or text .. " +"
+        end)
+
+        for i, v in pairs(list) do
+            local Option = Instance.new("TextButton", OptionScroll)
+            Option.Size = UDim2.new(1, 0, 0, 25)
+            Option.BackgroundTransparency = 1
+            Option.Text = v
+            Option.TextColor3 = theme.Text
+            Option.Font = Enum.Font.Gotham
+            Option.TextSize = 11
+
+            Option.Activated:Connect(function()
+                toggled = false
+                TweenService:Create(DropdownFrame, TweenInfo.new(0.2), {Size = UDim2.new(1, 0, 0, 28)}):Play()
+                DropBtn.Text = text .. " +"
+                if callback then callback(v) end
+            end)
+        end
     end
 
     return Elements

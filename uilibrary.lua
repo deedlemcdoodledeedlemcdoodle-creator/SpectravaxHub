@@ -6,18 +6,18 @@ local LocalPlayer = Players.LocalPlayer
 local Library = {
     Icons = {},
     Themes = {
-        ["Dark"]     = {Main = Color3.fromRGB(18, 18, 18), Accent = Color3.fromRGB(255, 255, 255), Outline = Color3.fromRGB(40, 40, 40), Text = Color3.fromRGB(230, 230, 230)},
-        ["Light"]    = {Main = Color3.fromRGB(240, 240, 240), Accent = Color3.fromRGB(0, 0, 0), Outline = Color3.fromRGB(200, 200, 200), Text = Color3.fromRGB(40, 40, 40)},
-        ["Nebula"]   = {Main = Color3.fromRGB(15, 10, 25), Accent = Color3.fromRGB(150, 50, 255), Outline = Color3.fromRGB(45, 30, 70), Text = Color3.fromRGB(240, 240, 240)},
-        ["Obsidian"] = {Main = Color3.fromRGB(10, 10, 10), Accent = Color3.fromRGB(120, 120, 120), Outline = Color3.fromRGB(30, 30, 30), Text = Color3.fromRGB(200, 200, 200)},
-        ["Aurora"]   = {Main = Color3.fromRGB(10, 25, 20), Accent = Color3.fromRGB(0, 255, 150), Outline = Color3.fromRGB(30, 60, 50), Text = Color3.fromRGB(230, 255, 240)},
-        ["Eclipse"]  = {Main = Color3.fromRGB(15, 15, 20), Accent = Color3.fromRGB(255, 100, 0), Outline = Color3.fromRGB(40, 30, 30), Text = Color3.fromRGB(255, 230, 230)},
-        ["Carbon"]   = {Main = Color3.fromRGB(25, 25, 25), Accent = Color3.fromRGB(200, 0, 0), Outline = Color3.fromRGB(50, 50, 50), Text = Color3.fromRGB(220, 220, 220)},
-        ["Ember"]    = {Main = Color3.fromRGB(25, 15, 10), Accent = Color3.fromRGB(255, 120, 0), Outline = Color3.fromRGB(60, 30, 10), Text = Color3.fromRGB(255, 240, 230)},
-        ["Glacier"]  = {Main = Color3.fromRGB(15, 20, 30), Accent = Color3.fromRGB(0, 200, 255), Outline = Color3.fromRGB(40, 60, 80), Text = Color3.fromRGB(230, 245, 255)},
-        ["Volt"]     = {Main = Color3.fromRGB(15, 15, 10), Accent = Color3.fromRGB(220, 255, 0), Outline = Color3.fromRGB(50, 50, 20), Text = Color3.fromRGB(245, 255, 220)},
-        ["Nova"]     = {Main = Color3.fromRGB(20, 10, 30), Accent = Color3.fromRGB(255, 0, 200), Outline = Color3.fromRGB(60, 20, 80), Text = Color3.fromRGB(255, 230, 250)},
-        ["Aether"]   = {Main = Color3.fromRGB(10, 10, 25), Accent = Color3.fromRGB(0, 255, 255), Outline = Color3.fromRGB(30, 30, 70), Text = Color3.fromRGB(220, 255, 255)}
+        ["Dark"]     = {Main = Color3.fromRGB(18, 18, 18), Accent = Color3.fromRGB(255, 255, 255), Outline = Color3.fromRGB(40, 40, 40), Text = Color3.fromRGB(230, 230, 230), Secondary = Color3.fromRGB(30, 30, 30)},
+        ["Light"]    = {Main = Color3.fromRGB(240, 240, 240), Accent = Color3.fromRGB(0, 0, 0), Outline = Color3.fromRGB(200, 200, 200), Text = Color3.fromRGB(40, 40, 40), Secondary = Color3.fromRGB(220, 220, 220)},
+        ["Nebula"]   = {Main = Color3.fromRGB(15, 10, 25), Accent = Color3.fromRGB(150, 50, 255), Outline = Color3.fromRGB(45, 30, 70), Text = Color3.fromRGB(240, 240, 240), Secondary = Color3.fromRGB(25, 20, 45)},
+        ["Obsidian"] = {Main = Color3.fromRGB(10, 10, 10), Accent = Color3.fromRGB(120, 120, 120), Outline = Color3.fromRGB(30, 30, 30), Text = Color3.fromRGB(200, 200, 200), Secondary = Color3.fromRGB(20, 20, 20)},
+        ["Aurora"]   = {Main = Color3.fromRGB(10, 25, 20), Accent = Color3.fromRGB(0, 255, 150), Outline = Color3.fromRGB(30, 60, 50), Text = Color3.fromRGB(230, 255, 240), Secondary = Color3.fromRGB(15, 40, 35)},
+        ["Eclipse"]  = {Main = Color3.fromRGB(15, 15, 20), Accent = Color3.fromRGB(255, 100, 0), Outline = Color3.fromRGB(40, 30, 30), Text = Color3.fromRGB(255, 230, 230), Secondary = Color3.fromRGB(25, 20, 20)},
+        ["Carbon"]   = {Main = Color3.fromRGB(25, 25, 25), Accent = Color3.fromRGB(200, 0, 0), Outline = Color3.fromRGB(50, 50, 50), Text = Color3.fromRGB(220, 220, 220), Secondary = Color3.fromRGB(35, 35, 35)},
+        ["Ember"]    = {Main = Color3.fromRGB(25, 15, 10), Accent = Color3.fromRGB(255, 120, 0), Outline = Color3.fromRGB(60, 30, 10), Text = Color3.fromRGB(255, 240, 230), Secondary = Color3.fromRGB(40, 25, 15)},
+        ["Glacier"]  = {Main = Color3.fromRGB(15, 20, 30), Accent = Color3.fromRGB(0, 200, 255), Outline = Color3.fromRGB(40, 60, 80), Text = Color3.fromRGB(230, 245, 255), Secondary = Color3.fromRGB(25, 35, 50)},
+        ["Volt"]     = {Main = Color3.fromRGB(15, 15, 10), Accent = Color3.fromRGB(220, 255, 0), Outline = Color3.fromRGB(50, 50, 20), Text = Color3.fromRGB(245, 255, 220), Secondary = Color3.fromRGB(25, 25, 15)},
+        ["Nova"]     = {Main = Color3.fromRGB(20, 10, 30), Accent = Color3.fromRGB(255, 0, 200), Outline = Color3.fromRGB(60, 20, 80), Text = Color3.fromRGB(255, 230, 250), Secondary = Color3.fromRGB(35, 15, 50)},
+        ["Aether"]   = {Main = Color3.fromRGB(10, 10, 25), Accent = Color3.fromRGB(0, 255, 255), Outline = Color3.fromRGB(30, 30, 70), Text = Color3.fromRGB(220, 255, 255), Secondary = Color3.fromRGB(20, 20, 45)}
     },
     CurrentTheme = nil
 }
@@ -76,14 +76,14 @@ function Library:CreateWindow(title, iconName)
     local CloseBtn = Instance.new("TextButton", Main)
     CloseBtn.Size = UDim2.new(0, 24, 0, 24)
     CloseBtn.Position = UDim2.new(1, -29, 0, 5)
-    CloseBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    CloseBtn.BackgroundColor3 = theme.Secondary
     CloseBtn.Text = "×" 
-    CloseBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+    CloseBtn.TextColor3 = theme.Text
     CloseBtn.TextSize = 20
     CloseBtn.Font = Enum.Font.Gotham
     Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 4)
     local cStroke = Instance.new("UIStroke", CloseBtn)
-    cStroke.Color = Color3.fromRGB(80, 80, 80)
+    cStroke.Color = theme.Outline
     CloseBtn.Activated:Connect(function() ScreenGui:Destroy() end)
 
     local Container = Instance.new("ScrollingFrame", Main)
@@ -103,9 +103,10 @@ function Library:CreateWindow(title, iconName)
         Label.Size = UDim2.new(1, 0, 0, 20)
         Label.BackgroundTransparency = 1
         Label.Text = text
-        Label.TextColor3 = Color3.fromRGB(160, 160, 160)
+        Label.TextColor3 = theme.Text
         Label.Font = Enum.Font.Gotham
         Label.TextSize = 11
+        Label.TextTransparency = 0.4
     end
 
     function Elements:CopyLabel(text, content)
@@ -137,7 +138,7 @@ function Library:CreateWindow(title, iconName)
     function Elements:Button(text, iconName, callback)
         local Button = Instance.new("TextButton", Container)
         Button.Size = UDim2.new(1, 0, 0, 30)
-        Button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        Button.BackgroundColor3 = theme.Secondary
         Button.Text = (iconName and "       " or "") .. text
         Button.TextColor3 = theme.Text
         Button.Font = Enum.Font.Gotham
@@ -156,9 +157,11 @@ function Library:CreateWindow(title, iconName)
         end
 
         Button.Activated:Connect(function()
-            TweenService:Create(Button, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.1), {BackgroundColor3 = theme.Accent}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.1), {TextColor3 = theme.Main}):Play()
             task.wait(0.1)
-            TweenService:Create(Button, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(30, 30, 30)}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.1), {BackgroundColor3 = theme.Secondary}):Play()
+            TweenService:Create(Button, TweenInfo.new(0.1), {TextColor3 = theme.Text}):Play()
             if callback then callback() end
         end)
     end
@@ -187,7 +190,7 @@ function Library:CreateWindow(title, iconName)
         local Bar = Instance.new("Frame", SliderFrame)
         Bar.Size = UDim2.new(1, -6, 0, 4)
         Bar.Position = UDim2.new(0, 3, 0, 26)
-        Bar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        Bar.BackgroundColor3 = theme.Secondary
         Instance.new("UICorner", Bar)
         local Fill = Instance.new("Frame", Bar)
         Fill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
@@ -221,7 +224,7 @@ function Library:CreateWindow(title, iconName)
     function Elements:Dropdown(text, list, callback)
         local DropdownFrame = Instance.new("Frame", Container)
         DropdownFrame.Size = UDim2.new(1, 0, 0, 28)
-        DropdownFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        DropdownFrame.BackgroundColor3 = theme.Secondary
         DropdownFrame.ClipsDescendants = true
         Instance.new("UICorner", DropdownFrame).CornerRadius = UDim.new(0, 4)
 
@@ -248,7 +251,6 @@ function Library:CreateWindow(title, iconName)
         local toggled = false
         DropBtn.Activated:Connect(function()
             toggled = not toggled
-            -- Limit height so it doesn't cover the whole screen
             local contentHeight = math.min(#list * 25, 125)
             local goalSize = toggled and UDim2.new(1, 0, 0, 28 + contentHeight) or UDim2.new(1, 0, 0, 28)
             TweenService:Create(DropdownFrame, TweenInfo.new(0.2), {Size = goalSize}):Play()
